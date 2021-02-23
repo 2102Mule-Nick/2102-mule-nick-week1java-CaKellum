@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,14 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] words = phrase.split(" ");
+		String initialism = "";
+		for(String word: words) {
+			if(!word.equals("of")) {
+				initialism += word.charAt(0);
+			}
+		}
+		return initialism;
 	}
 
 	/**
@@ -84,18 +91,15 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return sideOne == sideTwo && sideTwo ==sideThree;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return sideOne == sideTwo || sideTwo == sideThree || sideThree == sideOne;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return sideOne != sideTwo && sideTwo != sideThree && sideOne != sideThree;
 		}
 
 	}
@@ -116,8 +120,45 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		Map<Character, Integer> values = new HashMap<>();
+		values.putIfAbsent('a', 1);
+		values.putIfAbsent('e', 1);
+		values.putIfAbsent('i', 1);
+		values.putIfAbsent('o', 1);
+		values.putIfAbsent('u', 1);
+		values.putIfAbsent('l', 1);
+		values.putIfAbsent('n', 1);
+		values.putIfAbsent('r', 1);
+		values.putIfAbsent('s', 1);
+		values.putIfAbsent('t', 1);
+		
+		values.putIfAbsent('d', 2);
+		values.putIfAbsent('g', 2);
+		
+		values.putIfAbsent('b', 3);
+		values.putIfAbsent('c', 3);
+		values.putIfAbsent('m', 3);
+		values.putIfAbsent('p', 3);
+		
+		values.putIfAbsent('f', 4);
+		values.putIfAbsent('h', 4);
+		values.putIfAbsent('v', 4);
+		values.putIfAbsent('w', 4);
+		values.putIfAbsent('y', 4);
+		
+		values.putIfAbsent('k', 5);
+		
+		values.putIfAbsent('j', 8);
+		values.putIfAbsent('x', 8);
+		
+		values.putIfAbsent('q', 10);
+		values.putIfAbsent('z', 10);
+		
+		int total = 0;
+		for(int l = 0; l<string.length(); l++) {
+			total += values.get(string.charAt(l));
+		}
+		return total;
 	}
 
 	/**
